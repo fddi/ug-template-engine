@@ -1,12 +1,12 @@
 package ug.template.engine.core.launcher;
 
+import groovy.lang.GroovyClassLoader;
+import groovy.lang.GroovyObject;
+import org.codehaus.groovy.control.CompilerConfiguration;
 import ug.template.engine.core.CombPipe;
 import ug.template.engine.core.pipe.CustomCombPipe;
 
-import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
-import java.io.InputStream;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
@@ -18,7 +18,6 @@ import java.util.*;
 
 public class CombExecutor {
     private final CombConfig config;
-    private Map<String, Object> filterParams;
 
     CombExecutor(CombConfig config) {
         this.config = config;
@@ -102,19 +101,7 @@ public class CombExecutor {
         } while (!isEnd);
         reader.close();
         if (!cached && config.getCombCache() != null) config.getCombCache().setCache(itemName, nsb.toString());
-        if (params != null) {
-            this.filterParams = new HashMap<>();
-            for (Map.Entry<String, Object> entry : params.entrySet()) {
-                if (sb.toString().contains(":" + entry.getKey() + " ")) {
-                    this.filterParams.put(entry.getKey(), entry.getValue());
-                }
-            }
-        }
-        return sb.toString();
-    }
-
-    public Map<String, Object> getFilterParams() {
-        return filterParams;
+        return this.make(sb.toString(), params);
     }
 
     /**
@@ -177,4 +164,13 @@ public class CombExecutor {
         return true;
     }
 
+    private String make(String text, Map params) throws Exception {
+        CompilerConfiguration config = new CompilerConfiguration();
+        config.setSourceEncoding("UTF-8");
+        GroovyClassLoader gcl = new GroovyClassLoader(Thread.currentThread().getContextClassLoader(), config);
+        GroovyObject groovyObject = (GroovyObject) gcl.loadClass("ug.template.engine.core.CombTemplateEngine")
+                .getDeclaredConstructor().newInstance();
+        Object[] obj = new Object[]{text, params};
+        return (String) groovyObject.invokeMethod("make", obj);
+    }
 }

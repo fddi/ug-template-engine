@@ -8,7 +8,7 @@ import groovy.text.GStringTemplateEngine
  */
 class CombTemplateEngine {
 
-    public String make(String str, Map params) {
+    String make(String str, Map params) {
         def engine = new GStringTemplateEngine()
         def template = engine.createTemplate(str).make(params)
         return template.toString()
