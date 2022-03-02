@@ -11,12 +11,12 @@ $include{ test.query12} union $include{test.query13 }
 union
 $include{test.query13}
 `
-section query12`
+section query12 `
 select c01,c02,c03,c04,c05 from test1 where c01 = '01'
 $printIf{c02 !=null && !"".equals(c02)}and c02 like '%'||:c02||'%'
     $printIf{c03 > 0}and c03 = :c03
         $printIf{c04 >0}and c04 = :c04`
-section query13`select c01,c02,c03,c04,c05 from test1 where c01 = '01'
+section query13 `select c01,c02,c03,c04,c05 from test1 where c01 = '01'
 $printIf{c02 !=null && !"".equals(c02)}and c02 like '%'||:c02||'%'
     $printIf{c03 > 0}and c03 = :c03
         $printIf{c04 >0}and c04 = :c04

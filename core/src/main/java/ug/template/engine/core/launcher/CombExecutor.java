@@ -1,14 +1,17 @@
 package ug.template.engine.core.launcher;
 
-import groovy.lang.GroovyClassLoader;
-import groovy.lang.GroovyObject;
-import org.codehaus.groovy.control.CompilerConfiguration;
 import ug.template.engine.core.CombPipe;
 import ug.template.engine.core.pipe.CustomCombPipe;
+import ug.template.engine.core.util.GroovyObjectUtils;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 管道-过滤器 控制类
@@ -101,7 +104,8 @@ public class CombExecutor {
         } while (!isEnd);
         reader.close();
         if (!cached && config.getCombCache() != null) config.getCombCache().setCache(itemName, nsb.toString());
-        return this.make(sb.toString(), params);
+        Object[] obj = new Object[]{sb.toString(), params};
+        return (String) GroovyObjectUtils.getInstanceCTE().invokeMethod("make", obj);
     }
 
     /**
@@ -164,13 +168,4 @@ public class CombExecutor {
         return true;
     }
 
-    private String make(String text, Map params) throws Exception {
-        CompilerConfiguration config = new CompilerConfiguration();
-        config.setSourceEncoding("UTF-8");
-        GroovyClassLoader gcl = new GroovyClassLoader(Thread.currentThread().getContextClassLoader(), config);
-        GroovyObject groovyObject = (GroovyObject) gcl.loadClass("ug.template.engine.core.CombTemplateEngine")
-                .getDeclaredConstructor().newInstance();
-        Object[] obj = new Object[]{text, params};
-        return (String) groovyObject.invokeMethod("make", obj);
-    }
 }
