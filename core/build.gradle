@@ -5,12 +5,7 @@ plugins {
 }
 
 group 'ug.template.engine.core'
-version '1.0.7'
-
-repositories {
-    maven { url "https://maven.aliyun.com/repository/public" }
-    mavenCentral()
-}
+version '2.0.0'
 
 dependencies {
     implementation 'org.codehaus.groovy:groovy-all:3.0.8'
