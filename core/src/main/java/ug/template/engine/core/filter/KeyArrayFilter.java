@@ -29,31 +29,30 @@ public class KeyArrayFilter implements CombFilter {
                 break;
             }
             String block = input.substring(index + KEY.length(), r);
-            String array = "";
+            StringBuilder array = new StringBuilder();
             for (Map.Entry<String, Object> entry : params.entrySet()) {
                 if (block.trim().equals(entry.getKey())) {
-                    array = String.valueOf(entry.getValue());
+                    array = new StringBuilder(String.valueOf(entry.getValue()));
                     break;
                 }
             }
-            String[] values = array.split(",");
-            array = "";
+            String[] values = array.toString().split(",");
+            array = new StringBuilder();
             for (int i = 0; i < values.length; i++) {
                 String str = "',";
                 if (i == values.length - 1) {
                     str = "'";
                 }
-                array += "'" + values[i] + str;
+                array.append("'").append(values[i]).append(str);
             }
             Map<String, String> map = new HashMap<>();
             map.put("block", block);
-            map.put("array", array);
+            map.put("array", array.toString());
             list.add(map);
             index = input.indexOf(KEY, r);
         }
         String output = input;
-        for (int i = 0; i < list.size(); i++) {
-            Map<String, String> map = list.get(i);
+        for (Map<String, String> map : list) {
             output = output.replace(KEY + map.get("block") + "}", map.get("array"));
         }
         return output;

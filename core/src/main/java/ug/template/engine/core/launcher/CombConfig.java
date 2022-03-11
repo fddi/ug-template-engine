@@ -23,6 +23,7 @@ public class CombConfig {
     private CombCache combCache;
     private List<CombFilter> defaultFilters = new ArrayList<>();
     private List<CombFilter> filters = new ArrayList<>();
+    private boolean injectionCheck = true;
 
     public CombConfig() {
         defaultFilters.add(new KeyPrintIfFilter());
@@ -56,5 +57,13 @@ public class CombConfig {
 
     public void setCombCache(CombCache combCache) {
         this.combCache = combCache;
+    }
+
+    public boolean isInjectionCheck() {
+        return injectionCheck;
+    }
+
+    public void setInjectionCheck(boolean injectionCheck) {
+        this.injectionCheck = injectionCheck;
     }
 }
