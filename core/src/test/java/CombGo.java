@@ -7,7 +7,7 @@ import java.util.Map;
  */
 public class CombGo {
 
-    public static void main(String[] args) {
+    public void performance(){
         try {
             for (int i = 0; i < 1; i++) {
                 Map<String, Object> params = new HashMap<>();
@@ -24,6 +24,24 @@ public class CombGo {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public void cyc(){
+        Map<String, Object> params = new HashMap<>();
+        params.put("c03", 10);
+        String str = null;
+        try {
+            str = CombUtil.getInstance().build()
+                    .getComb("test.q5", params);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println(str);
+    }
+
+    public static void main(String[] args) {
+        CombGo go = new CombGo();
+        go.cyc();
     }
 
 }

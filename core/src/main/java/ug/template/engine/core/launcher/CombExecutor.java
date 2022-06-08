@@ -3,6 +3,7 @@ package ug.template.engine.core.launcher;
 import ug.template.engine.core.CombPipe;
 import ug.template.engine.core.pipe.CustomCombPipe;
 import ug.template.engine.core.util.GroovyObjectUtils;
+import ug.template.engine.core.util.InjectionCheckUtils;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
@@ -37,6 +38,9 @@ public class CombExecutor {
     public String getComb(String itemName, Map<String, Object> params) throws Exception {
         if (itemName == null) {
             throw new Exception("comb:itemName can not null!");
+        }
+        if (config.isInjectionCheck()) {
+            InjectionCheckUtils.check(params);
         }
         String[] tags = itemName.trim().split("\\.");
         if (tags.length <= 1) throw new Exception("comb:can not find sectionName!");

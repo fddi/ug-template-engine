@@ -23,3 +23,11 @@ $printIf{c02 !=null && !"".equals(c02)}and c02 like '%'||:c02||'%'
     $printIf{c03 > 0}and c03 = :c03
         $printIf{c04 >0}and c04 = :c04
 `
+section q5 `
+<%
+ for(int i = 0;i<c03;i++){
+    out.print 'hello,the number is \'' + i +'\''
+}
+ %>
+
+`
