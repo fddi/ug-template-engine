@@ -13,7 +13,8 @@ JAVA字符串模板引擎；便捷的工具调用返回、支持Groovy模板引�
 
 <img src="https://gitee.com/fddi/ug-template-engine/raw/master/docs/e1.png" width="60%">
 
-使用IDEA，可以下载插件 [Ug template File](https://plugins.jetbrains.com/plugin/18710-ug-template-file/versions/stable/182388)，高亮语法
+    使用IDEA，可以下载插件 [Ug template File](https://plugins.jetbrains.com/plugin/18710-ug-template-file/versions/stable/182388)，高亮语法
+
 3. 调用模板
 ```java
 Map<String, Object> params = new HashMap<>();
@@ -27,7 +28,7 @@ String sql = new CombFactory().build()
 System.out.println(sql);
 ```
 
-查看打印的sql是否符合你的预期。
+    查看打印的sql是否符合你的预期。
 
 4. 如果你使用JdbcTemplate
 ```java
@@ -38,13 +39,13 @@ namedParameterJdbcTemplate.query(sql, params);
 
 1. GStringTemplateEngine 
 
-模板内容支持groovy语言GStringTemplateEngine ，[查看用法](http://www.groovy-lang.org/templating.html#_gstringtemplateengine)
+    模板内容支持groovy语言GStringTemplateEngine ，[查看用法](http://www.groovy-lang.org/templating.html#_gstringtemplateengine)
 
 2. $printIf{exp}
 
-UG模板引擎是简单的按行解析字符串，大括号中表达式为groovy语法，返回bol值；为true时解析行后字符串，否则忽略。
+    UG模板引擎是简单的按行解析字符串，大括号中表达式为groovy语法，返回bol值；为true时解析行后字符串，否则忽略。
 
-支持缩进语法，实现嵌套判断
+    支持缩进语法，实现嵌套判断
 ```
 $printIf{c02 !=null && !"".equals(c02)}and c02 like '%'||:c02||'%'
     $printIf{c03 > 0}and c03 = :c03
@@ -53,11 +54,11 @@ $printIf{c02 !=null && !"".equals(c02)}and c02 like '%'||:c02||'%'
 
 3. $array{param}
 
-如字符串"1,2,3,4,5"转换为'1','2','3','4','5'
+    如字符串"1,2,3,4,5"转换为'1','2','3','4','5'
 
 4. $include{fileName.sectionName}
 
-可以引用其他模板段
+    可以引用其他模板段
 
 ## 扩展
 
