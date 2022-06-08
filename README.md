@@ -13,7 +13,7 @@ JAVA字符串模板引擎；便捷的工具调用返回、支持Groovy模板引�
 
 <img src="https://gitee.com/fddi/ug-template-engine/raw/master/docs/e1.png" width="60%">
 
-    使用IDEA，可以下载插件 [Ug template File](https://plugins.jetbrains.com/plugin/18710-ug-template-file/versions/stable/182388)，高亮语法
+   使用IDEA，可以下载插件 [Ug template File](https://plugins.jetbrains.com/plugin/18710-ug-template-file/versions/stable/182388)，高亮语法
 
 3. 调用模板
 ```java
@@ -28,7 +28,7 @@ String sql = new CombFactory().build()
 System.out.println(sql);
 ```
 
-    查看打印的sql是否符合你的预期。
+   查看打印的sql是否符合你的预期。
 
 4. 如果你使用JdbcTemplate
 ```java
