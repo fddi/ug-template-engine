@@ -5,10 +5,10 @@ plugins {
 }
 
 group 'ug.template.engine.core'
-version '2.0.0'
+version '0.2.1'
 
 dependencies {
-    implementation 'org.codehaus.groovy:groovy-all:3.0.8'
+    implementation 'org.codehaus.groovy:groovy-all:3.0.10'
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
 }

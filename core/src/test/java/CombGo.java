@@ -9,14 +9,15 @@ public class CombGo {
 
     public static void main(String[] args) {
         try {
-            for (int i = 0; i < 100000; i++) {
+            for (int i = 0; i < 1; i++) {
                 Map<String, Object> params = new HashMap<>();
-                params.put("c01", "01");
-                params.put("c02", "7");
-                params.put("c03", -3);
-                params.put("c04", -4);
+                params.put("c01", "something1");
+                params.put("c02", "something2");
+                params.put("c03", -1);
+                params.put("c04", 1);
                 params.put("c05", "1,2,3,4,5");
-                String str = CombUtil.getInstance().build()
+                String str = CombUtil.getInstance()
+                        .build()
                         .getComb("test.query1", params);
                 System.out.println(str);
             }
