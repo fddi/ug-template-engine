@@ -35,15 +35,15 @@ System.out.println(sql);
 namedParameterJdbcTemplate.query(sql, params);
 ```
 
-## 模板API
+## API
 
 1. GStringTemplateEngine 
 
-    模板内容支持groovy语言GStringTemplateEngine ，[查看用法](http://www.groovy-lang.org/templating.html#_gstringtemplateengine)
+    支持groovy模板写法：GStringTemplateEngine ，[查看用法](http://www.groovy-lang.org/templating.html#_gstringtemplateengine)
 
 2. $printIf{exp}
 
-    UG模板引擎是简单的按行解析字符串，大括号中表达式为groovy语法，返回bol值；为true时解析行后字符串，否则忽略。
+    按行解析字符串，大括号中表达式为groovy语法，返回bol值：为true时解析行后字符串，否则忽略。
 
     支持缩进语法，实现嵌套判断
 ```
@@ -60,7 +60,7 @@ $printIf{c02 !=null && !"".equals(c02)}and c02 like '%'||:c02||'%'
 
     可以引用其他模板段
 
-## 扩展
+## 扩展配置
 
 - 指定模板utp文件搜索路径
 ```java
