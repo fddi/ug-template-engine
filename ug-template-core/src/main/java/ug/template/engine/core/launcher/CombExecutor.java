@@ -33,7 +33,7 @@ public class CombExecutor {
      * @param itemName 查询章节，文件名.章节名 fileName.sectionName
      * @param params   参数
      * @return 处理后的字符串数据
-     * @throws Exception
+     * @throws Exception exception
      */
     public String getComb(String itemName, Map<String, Object> params) throws Exception {
         if (itemName == null) {

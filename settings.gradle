@@ -1,3 +1,3 @@
 rootProject.name = 'ug-template-engine'
-include 'core'
+include 'ug-template-core'
 

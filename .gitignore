@@ -26,3 +26,6 @@ build/
 /public
 /logs
 /classes
+
+gradle.properties
+liujf_0x2259AFB7_SECRET.gpg

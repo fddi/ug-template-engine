@@ -1,0 +1,104 @@
+plugins {
+    id 'groovy'
+    id 'java'
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+    id 'maven-publish'
+    id 'signing'
+}
+
+group 'io.github.fddi'
+version '0.2.3'
+
+dependencies {
+    implementation 'org.codehaus.groovy:groovy-all:3.0.11'
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+jar {
+    manifestContentCharset 'utf-8'
+    metadataCharset 'utf-8'
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId project.group
+            artifactId project.name
+            version project.version
+            //若是war包，就写components.web,若是jar包，就写components.java
+            from components.java
+//                artifact shadowJar
+            artifact sourcesJar
+            artifact javadocJar
+            pom {
+                // 构件名称
+                // 区别于artifactId，可以理解为artifactName
+                name = 'ug-template-engine'
+                // 构件描述
+                description = 'JAVA字符串模板引擎'
+                // 构件主页
+                url = 'https://github.com/fddi/ug-template-engine'
+                // 许可证名称和地址
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'https://mit-license.org/'
+                    }
+                }
+                // 开发者信息
+                developers {
+                    developer {
+                        name = 'liujf'
+                        email = 'fddiljf@126.com'
+                    }
+                }
+                // 版本控制仓库地址
+                scm {
+                    url = 'https://github.com/fddi/ug-template-engine'
+                    connection = 'scm:git:https://github.com/fddi/ug-template-engine.git'
+                    developerConnection = 'scm:git:https://github.com/fddi/ug-template-engine.git'
+                }
+            }
+        }
+    }
+    // 定义发布到哪里
+    repositories {
+        maven {
+            name 'ug-template-engine'
+//                url "https://oss.sonatype.org/service/local/staging/deploy/maven2"
+            url "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                // 这里就是之前在issues.sonatype.org注册的账号
+                username = "${ossrhUsername}"
+                password = "${ossrhPassword}"
+            }
+        }
+    }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
+javadoc {
+    // <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    // 防止本地打开中文乱码
+//        options.addStringOption("charset", "UTF-8")
+    options.encoding = "UTF-8"
+    failOnError = false
+}
