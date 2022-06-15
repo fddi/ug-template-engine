@@ -8,7 +8,21 @@ JAVA字符串模板引擎；便捷的工具调用返回、支持Groovy模板引�
 
 ## 用法
 
-1. 引用该项目包。
+1. 引用包。
+
+maven
+```xml
+<dependency>
+  <groupId>io.github.fddi</groupId>
+  <artifactId>ug-template-core</artifactId>
+  <version>0.2.4</version>
+</dependency>
+```
+
+gradle
+```groovy
+implementation 'io.github.fddi:ug-template-core:0.2.4'
+```
 2. 在resource/template下创建一个test.utp文件。格式如图
 
 <img src="https://gitee.com/fddi/ug-template-engine/raw/master/docs/e1.png" width="60%">

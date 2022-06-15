@@ -1,13 +1,12 @@
 plugins {
     id 'groovy'
     id 'java'
-    id 'com.github.johnrengelman.shadow' version '7.1.2'
     id 'maven-publish'
     id 'signing'
 }
 
 group 'io.github.fddi'
-version '0.2.3'
+version '0.2.4'
 
 dependencies {
     implementation 'org.codehaus.groovy:groovy-all:3.0.11'
@@ -17,11 +16,6 @@ dependencies {
 
 test {
     useJUnitPlatform()
-}
-
-jar {
-    manifestContentCharset 'utf-8'
-    metadataCharset 'utf-8'
 }
 
 task javadocJar(type: Jar) {
