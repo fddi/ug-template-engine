@@ -39,7 +39,7 @@ public class CombExecutor {
         if (itemName == null) {
             throw new Exception("comb:itemName can not null!");
         }
-        if (config.isInjectionCheck()) {
+        if (config.isInjectionCheck() && params != null) {
             InjectionCheckUtils.check(params);
         }
         String[] tags = itemName.trim().split("\\.");
