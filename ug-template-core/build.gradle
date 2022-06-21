@@ -6,7 +6,7 @@ plugins {
 }
 
 group 'io.github.fddi'
-version '0.2.4'
+version '0.2.5'
 
 dependencies {
     implementation 'org.codehaus.groovy:groovy-all:3.0.11'
