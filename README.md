@@ -1,50 +1,74 @@
 这里有瓜 ^-^
 
-JAVA字符串模板引擎；便捷的工具调用返回、支持Groovy模板引擎。
+JAVA template engine; supports Groovy template engine. Easy to assemble strings.
 
-目前使用它来做SQL字符串模板，配合HQL或NamedParameterJdbcTemplate使用，真香！
-
-如果厌倦了XML繁琐的嵌套格式，值得尝试一下。
+JAVA模板引擎；支持Groovy模板引擎。可以方便的组装字符串。
 
 ## 用法
 
-1. 引用包。
+1. 添加依赖
 
 maven
 ```xml
 <dependency>
   <groupId>io.github.fddi</groupId>
   <artifactId>ug-template-core</artifactId>
-  <version>0.2.4</version>
+  <version>0.2.5</version>
 </dependency>
 ```
 
 gradle
 ```groovy
-implementation 'io.github.fddi:ug-template-core:0.2.4'
+implementation 'io.github.fddi:ug-template-core:0.2.5'
 ```
-2. 在resource/template下创建一个test.utp文件。格式如图
+2. 在resource/template下创建一个test.utp文件
 
 <img src="https://gitee.com/fddi/ug-template-engine/raw/master/docs/e1.png" width="60%">
 
-   使用IDEA，可以下载插件 [Ug template File](https://plugins.jetbrains.com/plugin/18710-ug-template-file/versions/stable/182388)，高亮语法
+   使用IDEA，可下载插件 [Ug template File](https://plugins.jetbrains.com/plugin/18710-ug-template-file/versions/stable/182388)，高亮语法
 
 3. 调用模板
 ```java
 Map<String, Object> params = new HashMap<>();
-params.put("c01", "something1");
-params.put("c02", "something2");
-params.put("c03", -1);
-params.put("c04", 1);
-params.put("c05", "1,2,3,4,5");
-String sql = new CombFactory().build()
-        .getComb("test.query1", params);
-System.out.println(sql);
+params.put("title", "something title");
+params.put("time", "2022/7/25");
+String[] contents = new String[]{
+        "something item 1", "something item 2", "something item 3"
+};
+params.put("contents", contents);
+String html = new CombFactory().build()
+        .getComb("test.html", params);
+System.out.println(html);
 ```
 
-   查看打印的sql是否符合你的预期。
+   查看打印的html是否符合你的预期。
 
-4. 如果你使用JdbcTemplate
+## SQL模板引擎
+
+可用做SQL模板引擎，配合HQL或NamedParameterJdbcTemplate使用，真香！
+已经厌烦了XML繁琐的嵌套格式，值得尝试。
+> 模板已对入参SQL注入进行字符串校验。
+
+1. 在resource/sql-template下创建一个sqltest.utp文件。
+   
+<img src="https://gitee.com/fddi/ug-template-engine/raw/master/docs/e2.png" width="60%">
+
+2. 调用模板
+```java
+Map<String, Object> params = new HashMap<>();
+params.put("tag1", "表1");
+params.put("tag2", "表2");
+params.put("name", "赵");
+params.put("sex", "");
+params.put("age", "20,30");
+String sql = new CombFactory().fileScan("sql-template")
+     .build()
+     .getComb("test.html", params);
+System.out.println(sql);
+```
+查看打印的SQL是否符合你的预期。
+
+3. 如果你使用JdbcTemplate
 ```java
 namedParameterJdbcTemplate.query(sql, params);
 ```
@@ -53,7 +77,7 @@ namedParameterJdbcTemplate.query(sql, params);
 
 1. GStringTemplateEngine 
 
-    支持groovy模板写法：GStringTemplateEngine ，[查看用法](http://www.groovy-lang.org/templating.html#_gstringtemplateengine)
+    支持groovy模板语法：GStringTemplateEngine ，[查看用法](http://www.groovy-lang.org/templating.html#_gstringtemplateengine)
 
 2. $printIf{exp}
 
@@ -72,16 +96,16 @@ $printIf{c02 !=null && !"".equals(c02)}and c02 like '%'||:c02||'%'
 
 4. $include{fileName.sectionName}
 
-    可以引用其他模板段
+    可以引用其他模板
 
-## 扩展配置
+## 配置
 
 - 指定模板utp文件搜索路径
 ```java
 new CombFactory().fileScan(String... scanPackages)
 ```
 
-- 可以添加自定义筛选器
+- 可以添加自定义解析器
 > 注意是按行解析字符串
 
 ```java

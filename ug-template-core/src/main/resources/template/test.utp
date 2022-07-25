@@ -1,33 +1,15 @@
 # 测试文本
-section query1
+section html
 `
-select c01,c02,c03,c04,c05,${03} as t1,${04} as t2 from test where c01 = :c01
-$printIf{c02 !=null && !"".equals(c02)}and c02 like '%'||:c02||'%'
-    $printIf{c03 > 0}and c03 = :c03
-        and 1=1
-    $printIf{c04 > 0}and c04 = :c04
-        and c05 in ($array{ c05}) and c06 in ($array{ c05 })
-union
-$include{ test.query12} union $include{test.query13 }
-union
-$include{test.query13}
-`
-section query12 `
-select c01,c02,c03,c04,c05,${03} as t1,${04} as t2 from test1 where c01 = :c01
-$printIf{c02 !=null && !"".equals(c02)}and c02 like '%'||:c02||'%'
-    $printIf{c03 > 0}and c03 = :c03
-        $printIf{c04 >0}and c04 = :c04`
-
-section query13 `select c01,c02,c03,c04,c05,${03} as t1,${04} as t2 from test1 where c01 = :c01
-$printIf{c02 !=null && !"".equals(c02)}and c02 like '%'||:c02||'%'
-    $printIf{c03 > 0}and c03 = :c03
-        $printIf{c04 >0}and c04 = :c04
-`
-section q5 `
+<div>
+<h2>${title}</h2>
+<p>${time}</p>
+<ul>
 <%
- for(int i = 0;i<c03;i++){
-    out.print 'hello,the number is \'' + i +'\''
+ for(int i = 0;i < contents.length;i++){
+    out.print '<li>' + contents[i] +'<li>'
 }
  %>
-
+</ul>
+</div>
 `

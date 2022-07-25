@@ -1,0 +1,22 @@
+# 测试文本
+section query1
+`
+select ${tag1},name,nickname,age,sex from user1
+where 1=1 and
+$printIf{name !=null && !"".equals(name)} and name like '%'||:name||'%'
+    and nickname like '%'||:name||'%'
+$printIf{"男".equals(sex)} and sex = '1'
+$printIf{"女".equals(sex)} and sex = '2'
+and age in ($array{ age })
+union
+$include{sqltest.query2}
+`
+section query2 `
+select ${tag2},name,nickname,age,sex from user2
+where 1=1 and
+$printIf{name !=null && !"".equals(name)} and name like '%'||:name||'%'
+    and nickname like '%'||:name||'%'
+$printIf{"男".equals(sex)} and sex = '1'
+$printIf{"女".equals(sex)} and sex = '2'
+and age in ($array{ age })
+`
